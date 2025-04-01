@@ -1,0 +1,77 @@
+
+<section class="w-lg mx-auto border-1 border-slate-600 bg-neutral fixed" [class.opacity-25]="isLoadingRandomUser()">
+
+  <form class="mx-5 my-5" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col space-y-2">
+      <label class="text-2xl">Full name:</label>
+      <input class="w-full input" type="text" placeholder="Ex. Jane Doe" formControlName="name" />
+      @if (formUtils.isValidField('name', myForm) && myForm.controls['name'].touched) {
+        <app-error
+          [fieldError]="myForm.controls['name'].errors!"
+        />
+      }
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="flex flex-col space-y-2">
+      <label class="text-2xl">Gender:</label>
+      <div>
+        <input type="radio"class="radio radio-default" formControlName="gender" value="male"/>
+        <label> Male</label>
+      </div>
+      <div>
+        <input type="radio" class="radio radio-default"  formControlName="gender" value="female"/>
+        <label> Female</label>
+      </div>
+      @if (formUtils.isValidField('gender', myForm) && myForm.controls['gender'].touched) {
+        <app-error
+          [fieldError]="myForm.controls['gender'].errors!"
+        />
+      }
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="flex flex-col space-y-2">
+      <label class="text-2xl">Email:</label>
+      <input class="w-full input" type="email" placeholder="Ex. janedoe@example.com" formControlName="email"/>
+      @if (formUtils.isValidField('email', myForm) && myForm.controls['email'].touched) {
+        <app-error
+          [fieldError]="myForm.controls['email'].errors!"
+        />
+      }
+    </div>
+
+    <div class="divider"></div>
+    <div class="flex flex-col space-y-2">
+      <label class="text-2xl">Birthday:</label>
+      <input class="w-full input" type="date" placeholder="Ex. 30, 40 , 23" formControlName="birthday" [value]="myForm.controls['birthday'].value | date:'yyyy-MM-dd' " [max]="todayDate.toISOString().split('T')[0]"/>
+      @if (formUtils.isValidField('birthday', myForm) && myForm.controls['birthday'].touched) {
+        <app-error
+          [fieldError]="myForm.controls['birthday'].errors!"
+        />
+      }
+    </div>
+    <div class="divider"></div>
+
+    <div class="flex justify-evenly">
+      <button class="btn w-1/3"
+        [class.btn-primary]="!isUpdatingUser()"
+        [class.btn-info]="isUpdatingUser()"
+      type="submit">
+        @if (!isUpdatingUser()) {
+          Save user
+        }@else {
+          Update user
+        }
+      </button>
+      <button type="button" class="btn btn-success"
+      (click)="putRandomUser()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="15.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="12" r=".5" fill="currentColor"/><circle cx="15.5" cy="12" r=".5" fill="currentColor"/><circle cx="15.5" cy="16.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="16.5" r=".5" fill="currentColor"/></g></svg>
+      </button>
+    </div>
+  </form>
+
+</section>

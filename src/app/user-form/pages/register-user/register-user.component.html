@@ -1,0 +1,21 @@
+
+
+<main class="w-6xl grid grid-cols-2 mx-auto mt-10 my-auto">
+  <form-template
+  (clickEvent)="getRandomUser()"
+  [currentUser]="userFormService.currentUser()"
+  [isLoadingRandomUser]="userFormService.isLoadingRandomUser()"
+  (newUser)="userFormService.getNewUser($event)"
+  [isUpdatingUser]="userFormService.isUpdatingUser()"
+  (updatedUser)="userFormService.updateUser($event)"
+  [userList]="userFormService.users()"
+  />
+  <user-list
+    [userList]="userFormService.users()"
+    (updateUser)="userFormService.getUser($event)"
+    (deleteUser)="userFormService.deleteUser($event)"
+    [isUpdatingUser]="userFormService.isUpdatingUser()"
+    [activeId]="userFormService.currentId()"
+    (cancelEdit)="userFormService.cancelEdit()"
+  />
+</main>
